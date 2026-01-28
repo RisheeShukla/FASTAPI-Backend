@@ -1,20 +1,11 @@
-from urllib import response
-from xmlrpc import client
 from fastapi import FastAPI,UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from textblob import TextBlob
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from haversian import haversine
-from transformers import pipeline
-from langchain_core.messages import HumanMessage
 import pandas as pd
 import google.generativeai as genai
-import torch
-from PIL import Image
-from huggingface_hub import InferenceClient
-import base64
-import httpx
 from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
 import requests
