@@ -19,7 +19,7 @@ from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
 import requests
 import platform
-API_TOKEN = "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"
+
 import io
 import json
 import os
@@ -33,7 +33,7 @@ else:
 # Load vosk model
 modelvoice = Model("./vosk-model-small-en-us-0.15")
 app = FastAPI()
-genai.configure(api_key="AIzaSyBBx_cccbAKlqhW6ZNeieRgxnkomsDUv9Q")
+
 
 def detect_language(text: str) -> str:
     try:
@@ -56,7 +56,7 @@ class ChatRequest(BaseModel):
 # ---- LLM ----
 llm = HuggingFaceEndpoint(
     repo_id="Qwen/Qwen3-235B-A22B-Instruct-2507",
-    huggingfacehub_api_token="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",
+    huggingfacehub_api_token=os.getenv("HF_TOKEN"),
     task="text-generation",
     temperature=0.3,
     max_new_tokens=500
@@ -142,15 +142,6 @@ async def nearest_hospital(request: LocationRequest):
     return df.sort_values("distance_km").head(5).to_dict(orient="records")
 
       
-@app.post("/api/image-analysis")
-async def image_analysis(file: UploadFile = File(...)):
-    image_bytes = await file.read()
-    image=Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    response = model2.generate_content([
-    "Analyze this medical image and list abnormalities and its treatment options.",
-    image
-])
-    print(response.text)
-    return {"reply":response.text}
+
 
     
