@@ -53,7 +53,6 @@ llm = HuggingFaceEndpoint(
 )
 
 model = ChatHuggingFace(llm=llm)
-model2 = genai.GenerativeModel("gemini-2.0-flash")
 
 @app.post("/api/chatbot")
 async def create_item(request: ChatRequest):
