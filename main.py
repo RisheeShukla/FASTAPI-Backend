@@ -121,7 +121,14 @@ class LocationRequest(BaseModel):
 async def nearest_hospital(request: LocationRequest):
     latitude = request.latitude
     longitude = request.longitude
-    df=pd.read_csv("C:\\Users\\rishe\\Downloads\\pynext\\my-app\\backend\\Hospitals In India (Anonymized).csv")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Build the path to the CSV file inside a 'data' folder
+    csv_path = os.path.join(BASE_DIR, "..", "Hospitals In India (Anonymized).csv")
+
+# Read CSV into a DataFrame
+    df = pd.read_csv(csv_path)
+    
     df["distance_km"]=0.0
     df["distance_km"] = df.apply(
         lambda row: haversine(latitude, longitude, row["Latitude"], row["Longitude"]),
