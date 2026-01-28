@@ -1,7 +1,8 @@
-from fastapi import FastAPI,UploadFile, File
+from fastapi import FastAPI, Path,UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from textblob import TextBlob
+from pathlib import Path
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from haversian import haversine
 import pandas as pd
@@ -121,12 +122,11 @@ class LocationRequest(BaseModel):
 async def nearest_hospital(request: LocationRequest):
     latitude = request.latitude
     longitude = request.longitude
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    
+    BASE_DIR = Path(__file__).resolve().parent
 
-# Build the path to the CSV file inside a 'data' folder
-    csv_path = os.path.join(BASE_DIR, "..", "Hospitals In India (Anonymized).csv")
 
-# Read CSV into a DataFrame
+    csv_path = BASE_DIR / "Hospitals In India (Anonymized).csv"
     df = pd.read_csv(csv_path)
     
     df["distance_km"]=0.0
