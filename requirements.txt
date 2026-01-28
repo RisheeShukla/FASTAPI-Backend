@@ -12,5 +12,5 @@ nltk==3.9.2                    # required by textblob
 huggingface-hub==0.36.0        # matches langchain-huggingface
 filelock==3.20.3               # for huggingface
 fsspec==2026.1.0               # for huggingface
-packaging==26.0                # for huggingface
+packaging==25.0                # for huggingface
 pyyaml==6.0.3                  # for huggingface
