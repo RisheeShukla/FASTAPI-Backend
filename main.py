@@ -5,7 +5,6 @@ from textblob import TextBlob
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from haversian import haversine
 import pandas as pd
-import google.generativeai as genai
 from pydub import AudioSegment
 from vosk import Model, KaldiRecognizer
 import requests
