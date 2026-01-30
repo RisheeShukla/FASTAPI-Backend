@@ -60,7 +60,7 @@ async def create_item(request: ChatRequest):
     input = request.data
     lang = detect_language(request.data)
     prompt = f"""
-You are a medical assistant .
+You are a medical assistant and answer only in the language {"English" if (lang == 'unknown' or lang=='en') else lang}.
 Predict best and ONLY one possible  diagnosis  and Provide treatment plan on the diagnosis for the following symptoms {input} and also
 keep the writing clean with spaces and professional."""
     response = model.invoke(prompt)
@@ -87,7 +87,7 @@ async def create_voice_item(file: UploadFile = File(...)):
    
      audio = audio.set_channels(1).set_frame_rate(16000).set_sample_width(2)
 
-    # Initialize recognizer
+    
      rec = KaldiRecognizer(modelvoice, 16000)
 
     # Feed entire audio to recognizer in chunks of 4000ms
